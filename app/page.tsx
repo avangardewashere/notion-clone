@@ -2,6 +2,6 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div><span>hello</span></div>
+    <div><span className='text-red-500 font-bold'>hello</span></div>
   )
 }
