@@ -5,13 +5,19 @@ import { LucideIcon } from "lucide-react";
 interface ItemProps {
   label: string;
   icon: LucideIcon;
-  onClick: () => {};
+  onClick: () =>void;
 }
 
-const Item: React.FC<ItemProps> = ({ label, icon, onClick }) => {
+const Item: React.FC<ItemProps> = ({ label, icon: Icon, onClick }) => {
   return (
-    <div>
-      <span>Item</span>
+    <div
+      onClick={onClick}
+      role="button"
+      style={{ paddingLeft: "12px" }}
+      className="group min-h-[27px] text-sm py-1 pr-3 w-full hoverbg-primary/5 flex items-center text-muted-foreground font-medium"
+    >
+      <Icon className="shrink-0 h-[18px] mr-2 text-muted-foreground" />
+      <span className="truncate">{label}</span>
     </div>
   );
 };
