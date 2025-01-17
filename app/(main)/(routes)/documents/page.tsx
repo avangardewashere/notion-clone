@@ -2,11 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/clerk-react";
+import { useMutation } from "convex/react";
 import { PlusCircle } from "lucide-react";
+import { api } from "@/convex/_generated/api";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const DocumentsPage = () => {
   const { user } = useUser();
+  const create = useMutation(api.documents.create);
+
+  const onCreate = () => {
+    const promise = create({ title: "Untitle" });
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New note created!",
+      error: "Failed to create a new note.",
+    });
+  };
+
   return (
     <div className="h-full flex flex-col items-center justify-center space-y-4">
       <Image
@@ -27,7 +41,11 @@ const DocumentsPage = () => {
       <h2 className="text-lg font-medium">
         Welcome to {user?.firstName}&apos;s Solution
       </h2>
-      <Button className="bg-zinc-300 rounded-xl" variant={"outline"}>
+      <Button
+        onClick={onCreate}
+        className="bg-zinc-300 rounded-xl"
+        variant={"outline"}
+      >
         <PlusCircle className="h-4 w-4 mr-2" />
         Create a note
       </Button>
