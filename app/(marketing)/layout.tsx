@@ -1,4 +1,6 @@
-const MArketingLayout = ({ children }: { children: React.ReactNode }) => {
+import Navbar from "@/components/ui/Navbar";
+
+ const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full">
       <Navbar />
@@ -6,3 +8,4 @@ const MArketingLayout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
+export default MarketingLayout
