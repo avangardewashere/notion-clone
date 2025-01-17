@@ -8,20 +8,16 @@ export const metadata = {
   description: 'Connected Workspace for everyone',
   icons:{
     icon:[
-      {
-        // media:"(prefers-color-scheme:light)",
-        url:"./../public/solution.png",
-        href:"./../public/solution.png"
-      },
+ 
       {
         media:"(prefers-color-scheme:light)",
-        url:"./solution.png",
-        href:"/dolution.png"
+        url:"/solution.png",
+        href:"/solution.png"
       },
       {
         media:"(prefers-color-scheme:dark)",
         url:"/dark-solution.png",
-        href:"/dark-dolution.png"
+        href:"/dark-solution.png"
       }
     ]
   }
