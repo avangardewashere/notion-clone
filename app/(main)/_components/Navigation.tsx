@@ -6,10 +6,14 @@ import { usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./UserItem";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const Navigation = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width:768px)");
+
+  const documents = useQuery(api.documents.get);
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ComponentRef<"aside">>(null);
@@ -112,10 +116,10 @@ const Navigation = () => {
           <ChevronsLeft className="h-6 w-6" />
         </div>
         <div>
-          <UserItem /> 
+          <UserItem />
         </div>
         <div className="mt-4">
-          <p>Documents</p>
+          {documents?.map((doc) => <p key={doc._id}> {doc.title}</p>)}
         </div>
         <div
           onMouseDown={handleMouseDown}
@@ -134,7 +138,10 @@ const Navigation = () => {
       >
         <nav className="bg-transparent px-3 py-2 w-full">
           {isCollapsed && (
-            <MenuIcon onClick={resetWidth} className="h-6 w-6 text-muted-foreground" />
+            <MenuIcon
+              onClick={resetWidth}
+              className="h-6 w-6 text-muted-foreground"
+            />
           )}
         </nav>
       </div>
