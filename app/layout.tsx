@@ -10,12 +10,12 @@ export const metadata = {
     icon:[
       {
         // media:"(prefers-color-scheme:light)",
-        url:"/solution.png",
-        href:"/dolution.png"
+        url:"./../public/solution.png",
+        href:"./../public/solution.png"
       },
       {
         media:"(prefers-color-scheme:light)",
-        url:"/solution.png",
+        url:"./solution.png",
         href:"/dolution.png"
       },
       {
