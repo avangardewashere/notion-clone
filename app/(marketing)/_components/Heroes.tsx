@@ -13,6 +13,14 @@ const Heroes = () => {
             alt="documents"
           />
         </div>
+        <div className="relative w-[400px] h-[300px] hidden md:block">
+        <Image
+            src="/reading.png"
+            fill
+            className="object-contain"
+            alt="documents"
+          />
+        </div>
       </div>
     </div>
   );
