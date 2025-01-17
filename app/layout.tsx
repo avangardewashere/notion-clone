@@ -6,6 +6,25 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Solution',
   description: 'Connected Workspace for everyone',
+  icons:{
+    icon:[
+      {
+        // media:"(prefers-color-scheme:light)",
+        url:"/solution.png",
+        href:"/dolution.png"
+      },
+      {
+        media:"(prefers-color-scheme:light)",
+        url:"/solution.png",
+        href:"/dolution.png"
+      },
+      {
+        media:"(prefers-color-scheme:dark)",
+        url:"/dark-solution.png",
+        href:"/dark-dolution.png"
+      }
+    ]
+  }
 }
 
 export default function RootLayout({
