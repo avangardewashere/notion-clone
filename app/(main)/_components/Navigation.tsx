@@ -11,6 +11,7 @@ import { api } from "@/convex/_generated/api";
 import Item from "./Item";
 
 import { toast } from "sonner";
+import DocumentList from "./DocumentList";
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -136,6 +137,7 @@ const Navigation = () => {
         </div>
         <div className="mt-4">
          {/* back */}
+         <DocumentList />
         </div>
         <div
           onMouseDown={handleMouseDown}
