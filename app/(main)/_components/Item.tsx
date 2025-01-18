@@ -1,11 +1,26 @@
 "use client";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { useMutation } from "convex/react";
-import { ChevronDown, ChevronRight, LucideIcon, Plus } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  LucideIcon,
+  MoreHorizontal,
+  Plus,
+  Trash,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -37,11 +52,13 @@ const Item: React.FC<ItemProps> & {
   onExpand,
 }) => {
   const create = useMutation(api.documents.create);
+  const archive = useMutation(api.documents.archive);
   const router = useRouter();
   const HandleExpand = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e?.stopPropagation();
     onExpand?.();
   };
+  const { user } = useUser();
 
   const onCreate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e?.stopPropagation();
@@ -54,11 +71,21 @@ const Item: React.FC<ItemProps> & {
         // router.push(`/documents/${docId}`);
       }
     );
-
     toast.promise(promise, {
       loading: "Creating a new note...",
       success: "New note created!",
       error: "Failed to create a new note",
+    });
+  };
+
+  const onArchive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    if (!id) return;
+    const promise = archive({ id });
+    toast.promise(promise, {
+      loading: "Moving to trash...",
+      success: "Note has been moved to trash bin.",
+      error: "Failed to archived the note.",
     });
   };
 
@@ -70,7 +97,7 @@ const Item: React.FC<ItemProps> & {
       role="button"
       style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }}
       className={cn(
-        "group min-h-[27px] text-sm py-1 pr-3 w-full hoverbg-primary/5 flex items-center text-muted-foreground font-medium",
+        "group min-h-[27px] text-sm py-1 pr-3 w-full hover:bg-slate-200 flex items-center text-muted-foreground font-medium",
         active && "bg-slate-300 text-slate-500"
       )}
     >
@@ -97,6 +124,29 @@ const Item: React.FC<ItemProps> & {
       )}
       {!!id && (
         <div className="ml-auto flex items-center gap-x-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+              <div
+                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-nuetral-600"
+                role="button"
+              >
+                <MoreHorizontal className="h-4 w-4 text-muted-foreground"></MoreHorizontal>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-60"
+              align="start"
+              side="right"
+              forceMount
+            >
+              <DropdownMenuItem onClick={onArchive}>
+                <Trash className="h-4w-4 mr-2" />
+                Delete
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <div>Last edited by : {user?.fullName}</div>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div
             role="button"
             onClick={onCreate}

@@ -42,6 +42,8 @@ export const archive = mutation({
       isArchived: true,
     });
 
+    await recursiveArchive(args.id);
+
     return doc;
   },
 });

@@ -1,7 +1,14 @@
 "use clinet";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  Plus,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -17,7 +24,6 @@ const Navigation = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width:768px)");
   const create = useMutation(api.documents.create);
- 
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ComponentRef<"aside">>(null);
@@ -132,12 +138,13 @@ const Navigation = () => {
         <div>
           <UserItem />
           <Item onClick={() => {}} label="Search" icon={Search} isSearch />
-          <Item onClick={() => {}} label="Settings" icon={Settings}  />
+          <Item onClick={() => {}} label="Settings" icon={Settings} />
           <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
-         {/* back */}
-         <DocumentList />
+          {/* back */}
+          <DocumentList />
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
         </div>
         <div
           onMouseDown={handleMouseDown}
