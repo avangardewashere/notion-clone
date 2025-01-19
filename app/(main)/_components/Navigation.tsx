@@ -25,6 +25,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import TrashBox from "./trashbox";
 
 const Navigation = () => {
   const pathname = usePathname();
