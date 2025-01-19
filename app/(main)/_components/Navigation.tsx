@@ -136,7 +136,7 @@ const Navigation = () => {
           onClick={collapse}
           role="button"
           className={cn(
-            "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100",
+            "h-6 w-6 text-zinc-600 rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100",
             isMobile && "opacity-100"
           )}
         >
@@ -155,12 +155,12 @@ const Navigation = () => {
           <Popover>
             <PopoverTrigger className="w-full mt-4">
               <Item label="Trash" icon={Trash} />
-              <TrashBox />
+            
             </PopoverTrigger>
             <PopoverContent
-              className="p-0 w-72"
+              className="p-0 w-72 bg-white"
               side={isMobile ? "bottom" : "right"}
-            ></PopoverContent>
+            >  <TrashBox /></PopoverContent>
           </Popover>
         </div>
         <div
@@ -182,7 +182,7 @@ const Navigation = () => {
           {isCollapsed && (
             <MenuIcon
               onClick={resetWidth}
-              className="h-6 w-6 text-muted-foreground"
+              className="h-6 w-6 text-zinc-600"
             />
           )}
         </nav>

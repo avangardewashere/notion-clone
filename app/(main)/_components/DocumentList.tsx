@@ -56,7 +56,7 @@ const DocumentList: React.FC<DocumentListProps> = ({
     <>
       <p
         className={cn(
-          "hidden text-sm font-medium text-muted-foreground/80",
+          "hidden text-sm font-medium text-zinc-400/80",
           expanded && "last:block",
           level === 0 && "hidden"
         )}

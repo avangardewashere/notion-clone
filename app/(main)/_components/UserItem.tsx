@@ -38,7 +38,7 @@ const UserItem = () => {
         forceMount
       >
         <div className="flex flex-col space-y-4 p-2">
-          <p className="text-muted-foreground">
+          <p className="text-zinc-400">
             {user?.emailAddresses[0].emailAddress}
           </p>
           <div className="flex items-center gap-x-2">
@@ -55,7 +55,7 @@ const UserItem = () => {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="w-fll cursor-pointer text-muted-foreground"> 
+        <DropdownMenuItem className="w-fll cursor-pointer text-zinc-400"> 
             <SignOutButton>
                 Log Out
             </SignOutButton>
