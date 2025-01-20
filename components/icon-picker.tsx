@@ -2,25 +2,40 @@
 
 import { useTheme } from "next-themes";
 import EmojiPicker, { Theme } from "emoji-picker-react";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+
 interface IconPickerProps {
   onChange: (icon: string) => void;
   children: React.ReactNode;
   asChild?: boolean;
 }
 
-export const IconPicker: React.FC<IconPickerProps> = () => {
+export const IconPicker: React.FC<IconPickerProps> = ({
+  onChange,
+  asChild,
+  children,
+}) => {
   const { resolvedTheme } = useTheme();
 
-  const currentThem = (resolvedTheme || "light") as keyof typeof themeMap;
+  const currentTheme = (resolvedTheme || "light") as keyof typeof themeMap;
 
   const themeMap = {
     dark: Theme.DARK,
     light: Theme.LIGHT,
   };
 
+  const theme = themeMap[currentTheme];
+
   return (
-    <>
-      <span>ItemPicker</span>
-    </>
+    <Popover>
+      <PopoverTrigger asChild={asChild}>{children}</PopoverTrigger>
+      <PopoverContent className="p-0 w-full border-none shadow-none">
+        <EmojiPicker
+          height={350}
+          theme={theme}
+          onEmojiClick={(data) => onChange(data.emoji)}
+        ></EmojiPicker>
+      </PopoverContent>
+    </Popover>
   );
 };
