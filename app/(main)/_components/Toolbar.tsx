@@ -95,6 +95,7 @@ const Toolbar: React.FC<ToolBarProps> = ({ initialData, preview }) => {
             size="sm"
           >
             <ImageIcon className="h-4 w-4 mr-2" />
+            Add Image
           </Button>
         )}
       </div>
@@ -108,7 +109,9 @@ const Toolbar: React.FC<ToolBarProps> = ({ initialData, preview }) => {
           className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark-:text-[#cfcfcf] resize-none"
         />
       ) : (
-        <></>
+        <div className="pb-[11.5px] text-5xl font-bold break-words outline-none">
+          {initialData.title}
+        </div>
       )}
     </div>
   );
