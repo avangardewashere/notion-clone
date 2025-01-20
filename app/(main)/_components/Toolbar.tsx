@@ -2,8 +2,11 @@
 
 import { IconPicker } from "@/components/icon-picker";
 import { Button } from "@/components/ui/button";
+import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
-import { Smile, X } from "lucide-react";
+import { useMutation } from "convex/react";
+import { ImageIcon, Smile, X } from "lucide-react";
+import { ElementRef, useRef, useState } from "react";
 
 interface ToolBarProps {
   initialData: Doc<"documents">;
@@ -11,6 +14,42 @@ interface ToolBarProps {
 }
 
 const Toolbar: React.FC<ToolBarProps> = ({ initialData, preview }) => {
+  const inputRef = useRef<ElementRef<"textarea">>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(initialData.title);
+
+  const update = useMutation(api.documents.update);
+
+  const enableInput = () => {
+    if (preview) return;
+
+    setIsEditing(true);
+
+    setTimeout(() => {
+      setValue(initialData.title);
+      inputRef.current?.focus();
+    }, 0);
+  };
+
+  const disableInput = () => {
+    setIsEditing(false)
+  }
+
+
+  const onInput= (value:string) => {
+    setValue(value)
+    update({
+        id:initialData._id;
+        title:value || "Untitled"
+    });
+  }
+
+  const onKeyDown = (e:React.KeyboardEvent<HTMLTextAreaElement>)=>{
+    if(e.key === "Enter"){
+        e.preventDefault()
+    }
+  }
+
   return (
     <div className="pl-[54px] group relative">
       {!!initialData.icon && !preview && (
@@ -46,6 +85,17 @@ const Toolbar: React.FC<ToolBarProps> = ({ initialData, preview }) => {
               Add Icon
             </Button>
           </IconPicker>
+        )}
+
+        {!initialData.coverImage && !preview && (
+          <Button
+            onClick={() => {}}
+            className="text-slate-300 text-xs"
+            variant={"outline"}
+            size="sm"
+          >
+            <ImageIcon className="h-4 w-4 mr-2" />
+          </Button>
         )}
       </div>
     </div>
