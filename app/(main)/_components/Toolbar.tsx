@@ -7,7 +7,7 @@ import { Doc } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { ImageIcon, Smile, X } from "lucide-react";
 import { ElementRef, useRef, useState } from "react";
-
+import TextareaAutosize from "react-textarea-autosize";
 interface ToolBarProps {
   initialData: Doc<"documents">;
   preview?: boolean;
@@ -32,23 +32,23 @@ const Toolbar: React.FC<ToolBarProps> = ({ initialData, preview }) => {
   };
 
   const disableInput = () => {
-    setIsEditing(false)
-  }
+    setIsEditing(false);
+  };
 
-
-  const onInput= (value:string) => {
-    setValue(value)
+  const onInput = (value: string) => {
+    setValue(value);
     update({
-        id:initialData._id;
-        title:value || "Untitled"
+      id: initialData._id,
+      title: value || "Untitled",
     });
-  }
+  };
 
-  const onKeyDown = (e:React.KeyboardEvent<HTMLTextAreaElement>)=>{
-    if(e.key === "Enter"){
-        e.preventDefault()
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      disableInput();
     }
-  }
+  };
 
   return (
     <div className="pl-[54px] group relative">
@@ -98,6 +98,18 @@ const Toolbar: React.FC<ToolBarProps> = ({ initialData, preview }) => {
           </Button>
         )}
       </div>
+      {isEditing && !preview ? (
+        <TextareaAutosize
+          ref={inputRef}
+          onBlur={disableInput}
+          onKeyDown={onKeyDown}
+          value={value}
+          onChange={(e) => onInput(e.target.value)}
+          className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark-:text-[#cfcfcf] resize-none"
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
