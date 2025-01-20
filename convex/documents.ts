@@ -245,13 +245,13 @@ export const getById = query({
     const document = await ctx.db.get(args.docId);
     if (!document) throw new Error("Not found");
 
-    const userId = identity.subject
+    const userId = identity?.subject
 
     if (document.isPublished && !document.isArchived) {
       return document;
     }
 
-    if(document._id !== userId){
+    if(document.userId !== userId){
       throw new Error("Unauthorized");
     }
 
