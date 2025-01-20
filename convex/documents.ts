@@ -245,17 +245,48 @@ export const getById = query({
     const document = await ctx.db.get(args.docId);
     if (!document) throw new Error("Not found");
 
-    const userId = identity?.subject
+    const userId = identity?.subject;
 
     if (document.isPublished && !document.isArchived) {
       return document;
     }
 
-    if(document.userId !== userId){
+    if (document.userId !== userId) {
       throw new Error("Unauthorized");
     }
 
-    return document
+    return document;
+  },
+});
 
+export const update = mutation({
+  args: {
+    id: v.id("documents"),
+    title: v.optional(v.string()),
+    content: v.optional(v.string()),
+    coverImage: v.optional(v.string()),
+    icon: v.optional(v.string()),
+    isPublished: v.optional(v.boolean()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Unauthorized");
+    }
+
+    const userId = identity.subject;
+
+    const { id, ...rest } = args;
+
+    const existingDoc = await ctx.db.get(args.id);
+
+    if (!existingDoc) throw new Error("Not Found");
+
+    if (existingDoc.userId !== userId) throw new Error("Unauthorized");
+
+    const doc = await ctx.db.patch(args.id, { ...rest });
+
+    return doc;
   },
 });
