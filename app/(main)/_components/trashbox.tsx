@@ -1,5 +1,6 @@
 "use client";
 
+import { ConfirmModal } from "@/components/modals/ConfirmModal";
 import { Spinner } from "@/components/spinner";
 import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
@@ -85,7 +86,7 @@ const TrashBox = () => {
         {filteredDocs?.map((doc) => (
           <div className="text-sm rounded-sm w-full hover:bg-primary5 flex items-center text-primary justify-between">
             <span className="truncate pl-2">{doc.title}</span>
-            <div className="flex-items-center">
+            <div className="flex items-center">
               <div
                 onClick={(e) => onRestore(e, doc._id)}
                 role="button"
@@ -93,9 +94,13 @@ const TrashBox = () => {
               >
                 <Undo className="h-4 w-4 text-slate-600" />
               </div>
-              <div className="rounded-sm p-2 hover:bg-neutral-200">
-                <Trash className="h-4 2-4 text-slate-200" />
-              </div>
+              <ConfirmModal
+                onConfirm={() => onRemove(doc._id)  }
+              >
+                <div className="rounded-sm p-2 hover:bg-neutral-200">
+                  <Trash className="h-4 2-4 text-slate-200" />
+                </div>
+              </ConfirmModal>
             </div>
           </div>
         ))}

@@ -182,15 +182,15 @@ export const restore = mutation({
       }
     }
 
-    await ctx.db.patch(args.id, options);
+    const existingDocument = await ctx.db.patch(args.id, options);
 
     recursiveRestore(args.id);
 
-    return existingDoc;
+    return existingDocument;
   },
 });
 
-export const remove = mutation({
+export const remove = mutation({   
   args: { id: v.id("documents") },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
