@@ -52,9 +52,9 @@ export const SearchCommand = () => {
     return null;
   }
   return (
-    <CommandDialog open={isOpen} onOpenChange={onClose}>
-      <CommandInput placeholder={`Search ${user?.fullName}'s Solution`} />
-      <CommandList>
+    <CommandDialog  open={isOpen} onOpenChange={onClose}>
+      <CommandInput className="bg-white w-full" placeholder={`Search ${user?.fullName}'s Solution`} />
+      <CommandList className="bg-white">
         <CommandEmpty>No Result Found</CommandEmpty>
         <CommandGroup heading="Documents">
           {docs?.map((doc) => (
@@ -63,9 +63,10 @@ export const SearchCommand = () => {
               value={`${doc._id}-${doc.title}`}
               title={doc.title}
               onSelect={onSelect}
+              className="flex"
             >
               {doc.icon ? (
-                <p className="mr-2 .text-[18px]">{doc.icon}</p>
+                <p className="mr-2 text-[18px]">{doc.icon}</p>
               ) : (
                 <File className="mr-2 h-4 w-4" />
               )}
