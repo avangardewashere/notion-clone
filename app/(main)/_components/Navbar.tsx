@@ -5,6 +5,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
+import Title from "./Title";
 
 interface NavbarProps {
   isCollapsed: boolean;
@@ -21,7 +22,11 @@ const Navbar: React.FC<NavbarProps> = ({ isCollapsed, onResetWidth }) => {
   console.log(params.documentId);
 
   if (document === undefined) {
-    return <p>Loading...</p>;
+    return (
+      <nav className="bg-white dark:bg-[#1f1f1f] px-2 py-2 w-full flex items-center">
+        <Title.Skeleton/> 
+      </nav>
+    );
   }
 
   if (document === null) {
