@@ -24,7 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ isCollapsed, onResetWidth }) => {
   if (document === undefined) {
     return (
       <nav className="bg-white dark:bg-[#1f1f1f] px-2 py-2 w-full flex items-center">
-        <Title.Skeleton/> 
+        <Title.Skeleton />
       </nav>
     );
   }
@@ -48,6 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({ isCollapsed, onResetWidth }) => {
           <Title initialData={document} />
         </div>
       </nav>
+      {document.isArchived && <Banner docId={document._id} />}
     </>
   );
 };
