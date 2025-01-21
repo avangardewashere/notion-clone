@@ -10,13 +10,14 @@ import { Id } from "@/convex/_generated/dataModel";
 import { SingleImageDropzone } from "../SingleImageDropzone";
  
 
-export const CoverImageModal = () => {
+export const CoverImageModal =  () => {
   const [file, setFile] = useState<File>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const update = useMutation(api.documents.update);
   const coverImage = useCoverImage();
   const params = useParams();
-  const { edgestore } = useEdgeStore();
+  const { edgestore } = useEdgeStore()
+ 
 
   const onClose = () => {
     setFile(undefined);

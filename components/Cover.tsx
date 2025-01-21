@@ -1,7 +1,27 @@
 "use client";
 
-const Cover = () => {
-  return <div></div>;
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+
+interface CoverImageProps {
+  url?: string;
+  preview?: boolean;
+}
+
+const Cover: React.FC<CoverImageProps> = ({ url, preview }) => {
+    console.log(url)
+  return (
+    <div
+      className={cn(
+        "relative w-full h-[35vh] group ",
+        !url && "h-[12vh]",
+        url && "bg-slate-200"
+      )}
+    >
+      Cover Image
+      {!!url && <Image src={url} fill alt="Cover" className="object-cover" />}
+    </div>
+  );
 };
 
 export default Cover;

@@ -69,7 +69,7 @@ const Navigation = () => {
   };
 
   const handleMouseMove = (event: MouseEvent) => {
-    console.log("meow");
+ 
     if (!isResizingRef.current) return;
     let newWidth = event.clientX;
 

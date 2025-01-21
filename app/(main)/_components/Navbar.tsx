@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ isCollapsed, onResetWidth }) => {
     docId: params.documentId as Id<"documents">,
   });
 
-  console.log(params.documentId);
+ 
 
   if (document === undefined) {
     return (
