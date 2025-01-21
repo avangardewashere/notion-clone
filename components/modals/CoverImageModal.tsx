@@ -7,6 +7,8 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
+import { SingleImageDropzone } from "../SingleImageDropzone";
+ 
 
 export const CoverImageModal = () => {
   const [file, setFile] = useState<File>();
@@ -39,12 +41,20 @@ export const CoverImageModal = () => {
   };
 
   return (
-    <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
-      <DialogContent>
-        <DialogHeader>
-          <h2 className="text-center text-lg font-semibold">Cover Image</h2>
+    <Dialog  open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
+      <DialogContent className="bg-white">
+        <DialogHeader >
+          <h2 className=" text-center text-lg font-semibold">Cover Image</h2>
         </DialogHeader>
-        <div>todo:Upload Image</div>
+        {/* <div>todo:Upload Image</div> */}
+        <SingleImageDropzone
+          className="w-full outline-none"
+          disabled={isSubmitting}
+          value={file}
+          width={200}
+          height={200}
+          onChange={onChange}
+        /> 
       </DialogContent>
     </Dialog>
   );
