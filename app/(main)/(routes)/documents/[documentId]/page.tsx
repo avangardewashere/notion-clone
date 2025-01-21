@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import Toolbar from "@/app/(main)/_components/Toolbar";
+import Cover from "@/components/Cover";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
- 
+
 import { useQuery } from "convex/react";
 
 interface DocumentsIdpageProps {
@@ -26,7 +27,8 @@ const DocumentIdPage = ({ params }: DocumentsIdpageProps) => {
 
   return (
     <div className="pb-40">
-      <div className="h-35" />
+      {/* <div className="h-35" /> */}
+      <Cover />
       <div className="mt-40 md:max-w-3xl lg:max-w-4xl mx-auto">
         <Toolbar initialData={document} />
       </div>
