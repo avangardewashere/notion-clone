@@ -29,6 +29,7 @@ import TrashBox from "./trashbox";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import Navbar from "./Navbar";
+import { useRouter } from "next/router";
 
 const Navigation = () => {
   const settings = useSettings();
@@ -69,7 +70,6 @@ const Navigation = () => {
   };
 
   const handleMouseMove = (event: MouseEvent) => {
- 
     if (!isResizingRef.current) return;
     let newWidth = event.clientX;
 
@@ -118,9 +118,11 @@ const Navigation = () => {
 
     setTimeout(() => setIsResetting(false), 300);
   };
-
+  const router = useRouter();
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
+    const promise = create({ title: "Untitled" }).then((docId) =>
+      router.push(`/documents/${docId}`)
+    );
 
     toast.promise(promise, {
       loading: "Creating a new note...",
