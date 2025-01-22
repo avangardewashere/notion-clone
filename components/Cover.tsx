@@ -10,7 +10,7 @@ import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
 import { useEdgeStore } from "@/lib/edgestore";
-
+import { Skeleton as SKTN } from "@/components/ui/skeleton";
 export const revalidate = 0;
 
 interface CoverImageProps {
@@ -18,7 +18,9 @@ interface CoverImageProps {
   preview?: boolean;
 }
 
-const Cover: React.FC<CoverImageProps> = ({ url, preview }) => {
+const Cover: React.FC<CoverImageProps> & {
+  Skeleton: React.FC<{}>;
+} = ({ url, preview }) => {
   const params = useParams();
   const coverImage = useCoverImage();
   const removeCoverImage = useMutation(api.documents.removeCoverImage);
@@ -48,7 +50,7 @@ const Cover: React.FC<CoverImageProps> = ({ url, preview }) => {
       {url && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
           <Button
-            onClick={()=>coverImage.onReplace(url)}
+            onClick={() => coverImage.onReplace(url)}
             className="text-slate-500 text-xs bg-white"
             variant={"outline"}
             size="sm"
@@ -70,3 +72,7 @@ const Cover: React.FC<CoverImageProps> = ({ url, preview }) => {
 };
 
 export default Cover;
+
+Cover.Skeleton = function Skeleton() {
+  return <SKTN className="w-full h-[12vh]" />;
+};
