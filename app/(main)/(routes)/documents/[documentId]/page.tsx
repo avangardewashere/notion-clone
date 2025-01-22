@@ -7,14 +7,16 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import Editor from "@/components/Editor";
+import { useMutation } from "convex/react";
+ 
 interface DocumentsIdpageProps {
   params?: Promise<{ documentId: Id<"documents"> }>;
 }
 
 const DocumentIdPage = ({ params }: DocumentsIdpageProps) => {
   const [documentId, setDocumentId] = useState<Id<"documents"> | null>(null);
-
+  const update= useMutation(api.documents.update)
   useEffect(() => {
     params?.then((resolvedParams) => setDocumentId(resolvedParams.documentId));
   }, [params]);
@@ -23,6 +25,13 @@ const DocumentIdPage = ({ params }: DocumentsIdpageProps) => {
     api.documents.getById,
     documentId ? { docId: documentId } : "skip"
   );
+
+  const onChange = (content:string) =>{
+    update({
+        id: documentId  as any,
+        content
+    })
+  }
 
   if (!documentId) {
     return <div>Loading...</div>; // Wait for documentId to resolve
@@ -48,11 +57,13 @@ const DocumentIdPage = ({ params }: DocumentsIdpageProps) => {
     return <div>Not Found</div>; // Document not found
   }
 
+
   return (
     <div className="pb-40">
       <Cover url={document.coverImage} />
       <div className="mt-40 md:max-w-3xl lg:max-w-4xl mx-auto">
         <Toolbar initialData={document} />
+        <Editor onChange={onChange} />
       </div>
     </div>
   );
