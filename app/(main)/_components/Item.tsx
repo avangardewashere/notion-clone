@@ -68,7 +68,7 @@ const Item: React.FC<ItemProps> & {
         if (!expanded) {
           onExpand?.();
         }
-         router.push(`/documents/${docId}`);
+        router.push(`/documents/${docId}`);
       }
     );
     toast.promise(promise, {
@@ -81,7 +81,7 @@ const Item: React.FC<ItemProps> & {
   const onArchive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     if (!id) return;
-    const promise = archive({ id }).then(()=>router.push("/documents"));
+    const promise = archive({ id }).then(() => router.push("/documents"));
     toast.promise(promise, {
       loading: "Moving to trash...",
       success: "Note has been moved to trash bin.",
@@ -113,7 +113,7 @@ const Item: React.FC<ItemProps> & {
       {documentIcon ? (
         <div className="shrink-0 mr-2 text-[10px]">{documentIcon}</div>
       ) : (
-        <Icon className="shrink-0 h-[18px] mr-2 text-zinc-400" />
+        <Icon className="shrink-0 h-[18px] w-{18px} mr-2 text-zinc-400" />
       )}
       {/* <Icon className="shrink-0 h-[18px] mr-2 text-zinc-400" /> */}
       <span className="text-zinc-600 truncate">{label}</span>

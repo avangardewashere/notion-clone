@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Toolbar from "@/app/(main)/_components/Toolbar";
 import Cover from "@/components/Cover";
 import { api } from "@/convex/_generated/api";
@@ -9,14 +9,18 @@ import { useQuery } from "convex/react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Editor from "@/components/Editor";
 import { useMutation } from "convex/react";
- 
+import dynamic from "next/dynamic";
+
 interface DocumentsIdpageProps {
   params?: Promise<{ documentId: Id<"documents"> }>;
 }
 
 const DocumentIdPage = ({ params }: DocumentsIdpageProps) => {
+  const Editor = useMemo(() =>
+    dynamic(() => import("@/components/Editor"), { ssr: false }),[]
+  );
   const [documentId, setDocumentId] = useState<Id<"documents"> | null>(null);
-  const update= useMutation(api.documents.update)
+  const update = useMutation(api.documents.update);
   useEffect(() => {
     params?.then((resolvedParams) => setDocumentId(resolvedParams.documentId));
   }, [params]);
@@ -26,12 +30,12 @@ const DocumentIdPage = ({ params }: DocumentsIdpageProps) => {
     documentId ? { docId: documentId } : "skip"
   );
 
-  const onChange = (content:string) =>{
+  const onChange = (content: string) => {
     update({
-        id: documentId  as any,
-        content
-    })
-  }
+      id: documentId as any,
+      content,
+    });
+  };
 
   if (!documentId) {
     return <div>Loading...</div>; // Wait for documentId to resolve
@@ -56,7 +60,6 @@ const DocumentIdPage = ({ params }: DocumentsIdpageProps) => {
   if (document === null) {
     return <div>Not Found</div>; // Document not found
   }
-
 
   return (
     <div className="pb-40">
