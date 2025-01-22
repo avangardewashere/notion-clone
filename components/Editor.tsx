@@ -37,7 +37,7 @@ const Editor: React.FC<EditorProps> = ({
 
   return (
     <div>
-      <BlockNoteView editor={editor} theme="light" />;
+      <BlockNoteView editable={editable} editor={editor} theme="light" />;
     </div>
   );
 };
