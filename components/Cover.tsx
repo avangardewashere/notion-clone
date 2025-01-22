@@ -22,11 +22,11 @@ const Cover: React.FC<CoverImageProps> = ({ url, preview }) => {
   const params = useParams();
   const coverImage = useCoverImage();
   const removeCoverImage = useMutation(api.documents.removeCoverImage);
-  const { edgeStore } = useEdgeStore();
+  const edgeStore = useEdgeStore();
 
   const onremove = async () => {
     if (url) {
-      await edgeStore.publicFiles.deleet({
+      await edgeStore.edgestore.publicFiles.delete({
         url: url,
       });
     }

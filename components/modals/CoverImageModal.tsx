@@ -8,16 +8,14 @@ import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
 import { SingleImageDropzone } from "../SingleImageDropzone";
- 
 
-export const CoverImageModal =  () => {
+export const CoverImageModal = () => {
   const [file, setFile] = useState<File>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const update = useMutation(api.documents.update);
   const coverImage = useCoverImage();
   const params = useParams();
-  const { edgestore } = useEdgeStore()
- 
+  const { edgestore } = useEdgeStore();
 
   const onClose = () => {
     setFile(undefined);
@@ -29,8 +27,17 @@ export const CoverImageModal =  () => {
     if (file) {
       setIsSubmitting(true);
       setFile(file);
-
-      const res = await edgestore.publicFiles.upload({ file });
+      let res;
+      if (coverImage.url) {
+        res = await edgestore.publicFiles.upload({
+          file,
+          options: {
+            replaceTargetUrl: coverImage.url,
+          },
+        });
+      } else {
+        res = await edgestore.publicFiles.upload({ file });
+      }
 
       await update({
         id: params.documentId as Id<"documents">,
@@ -42,9 +49,9 @@ export const CoverImageModal =  () => {
   };
 
   return (
-    <Dialog  open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
+    <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
       <DialogContent className="bg-white">
-        <DialogHeader >
+        <DialogHeader>
           <h2 className=" text-center text-lg font-semibold">Cover Image</h2>
         </DialogHeader>
         {/* <div>todo:Upload Image</div> */}
@@ -55,7 +62,7 @@ export const CoverImageModal =  () => {
           width={200}
           height={200}
           onChange={onChange}
-        /> 
+        />
       </DialogContent>
     </Dialog>
   );
