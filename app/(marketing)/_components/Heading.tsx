@@ -20,7 +20,7 @@ const Heading = () => {
         <br />
         to make everything better
       </h3>
-      {isLoading && (
+      {/* {isLoading && (
         <div className="w-full flex items-center justify-center">
           <Spinner size={"lg"} />
         </div>
@@ -48,7 +48,7 @@ const Heading = () => {
             <ArrowRight className="h-4 w-4 ml-2" />
           </Button>
         </SignInButton>
-      )}
+      )} */}
     </div>
   );
 };
