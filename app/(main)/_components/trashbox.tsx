@@ -84,7 +84,7 @@ const TrashBox = () => {
           No documents found
         </p>
         {filteredDocs?.map((doc) => (
-          <div className="text-sm rounded-sm w-full hover:bg-primary5 flex items-center text-primary justify-between">
+          <div key={doc._id} className="text-sm rounded-sm w-full hover:bg-primary5 flex items-center text-primary justify-between">
             <span className="truncate pl-2">{doc.title}</span>
             <div className="flex items-center">
               <div
