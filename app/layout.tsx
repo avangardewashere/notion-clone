@@ -47,8 +47,8 @@ export default function RootLayout({
               <Toaster position="bottom-center" />
               <ModalProvider />
               {children}
-            </ThemeProvider>{" "}
-          </ConvexClientProvider>{" "}
+            </ThemeProvider> 
+          </ConvexClientProvider> 
         </EdgeStoreProvider>
       </body>
     </html>
