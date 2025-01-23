@@ -14,7 +14,7 @@ import { useParams, usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./UserItem";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Item from "./Item";
 
@@ -29,7 +29,7 @@ import TrashBox from "./trashbox";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import Navbar from "./Navbar";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Navigation = () => {
   const settings = useSettings();

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,14 +7,14 @@ const ErrorPage = () => {
   return (
     <div className="h-full flex flex-col items-center justify-center space-y-4">
       <Image
-        src={"/empty.png"}
-        alt="empty"
+        src={"/empty-image.png"}
+        alt="error"
         height={"300"}
         width={"300"}
         className="dark:hidden"
       />
       <Image
-        src={"/error.png"}
+        src={"/empty-image.png"}
         alt="Error"
         height={"300"}
         width={"300"}
@@ -28,4 +28,4 @@ const ErrorPage = () => {
     </div>
   );
 };
-export default ErrorPage
+export default ErrorPage;
